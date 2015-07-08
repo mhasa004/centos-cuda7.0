@@ -21,11 +21,11 @@ RUN ./NVIDIA-Linux-x86_64-352.21.run -s -N --no-kernel-module
 
 RUN wget $CUDA_RUN
 RUN chmod +x *.run
-RUN mkdir nvidia_installers 
-RUN ./cuda_7.0.28_linux.run -extract=`pwd`/nvidia_installers
-RUN cd nvidia_installers
+RUN mkdir /opt/nvidia_installers 
+RUN ./cuda_7.0.28_linux.run -extract=/opt/nvidia_installers
+RUN cd /opt/nvidia_installers
 RUN chmod +x *.run
-RUN ./cuda-linux64-rel-7.0.28-19326674.run -noprompt
+RUN ./cuda-linux64-rel-*.run -noprompt
 
 # Ensure the CUDA libs and binaries are in the correct environment variables
 ENV LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.0/lib64
