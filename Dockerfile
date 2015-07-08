@@ -20,6 +20,7 @@ RUN chmod +x *.run
 RUN ./NVIDIA-Linux-x86_64-352.21.run -s -N --no-kernel-module
 
 RUN wget $CUDA_RUN
+RUN chmod +x *.run
 RUN mkdir nvidia_installers 
 RUN ./cuda_7.0.28_linux.run -extract=`pwd`/nvidia_installers
 RUN cd nvidia_installers
