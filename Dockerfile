@@ -8,17 +8,18 @@ ENV CUDA_RUN http://developer.download.nvidia.com/compute/cuda/7_0/Prod/local_in
 RUN yum -y update 
 RUN yum install -q -y wget
 RUN yum -q -y groupinstall 'Development Tools'
+RUN yum -y install module-init-tools
 
-RUN cd /opt && \
-  wget $CUDA_RUN && \
-  chmod +x *.run && \
-  mkdir nvidia_installers && \
-  ./cuda_7.0.28_linux.run -extract=`pwd`/nvidia_installers && \
-  cd nvidia_installers && \
-  ./NVIDIA-Linux-x86_64-346.46.run -s -N --no-kernel-module
+RUN cd /opt
+RUN wget $CUDA_RUN
+RUN chmod +x *.run 
+RUN mkdir nvidia_installers 
+RUN ./cuda_7.0.28_linux.run -extract=`pwd`/nvidia_installers
+RUN cd nvidia_installers
+RUN ./NVIDIA-Linux-x86_64-346.46.run -s -N --no-kernel-module
 
-RUN cd /opt/nvidia_installers && \
-  ./cuda-linux64-rel-7.0.28-19326674.run -noprompt
+RUN cd /opt/nvidia_installers 
+RUN ./cuda-linux64-rel-7.0.28-19326674.run -noprompt
 
 # Ensure the CUDA libs and binaries are in the correct environment variables
 ENV LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.0/lib64
