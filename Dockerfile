@@ -24,6 +24,7 @@ RUN chmod +x *.run
 RUN mkdir nvidia_installers 
 RUN ./cuda_7.0.28_linux.run -extract=`pwd`/nvidia_installers
 RUN cd nvidia_installers
+RUN chmod +x *.run
 RUN ./cuda-linux64-rel-7.0.28-19326674.run -noprompt
 
 # Ensure the CUDA libs and binaries are in the correct environment variables
