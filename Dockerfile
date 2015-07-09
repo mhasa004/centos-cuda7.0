@@ -14,14 +14,12 @@ RUN yum install -q -y wget
 RUN yum -q -y groupinstall 'Development Tools'
 RUN yum -y install module-init-tools
 
-RUN cd /opt && wget $CUDA_DRIVER && chmod +x *.run && \
+RUN wget $CUDA_DRIVER && chmod +x *.run && \
   ./NVIDIA-Linux-x86_64-352.21.run -s -N --no-kernel-module
 
-RUN cd /opt && wget $CUDA_RUN && chmod +x *.run
-RUN mkdir /opt/nvidia_installers 
-RUN ./cuda_7.0.28_linux.run -extract=/opt/nvidia_installers
-RUN cd /opt/nvidia_installers && chmod +x *.run && \
-  ./cuda-linux64-rel-*.run -noprompt
+RUN wget $CUDA_RUN && chmod +x *.run
+RUN ./cuda_7.0.28_linux.run -extract=/
+RUN chmod +x *.run && ./cuda-linux64-rel-*.run -noprompt
 
 # Ensure the CUDA libs and binaries are in the correct environment variables
 ENV LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.0/lib64
